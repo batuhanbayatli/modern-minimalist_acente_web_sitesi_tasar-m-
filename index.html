@@ -1,0 +1,1218 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Güvenli Sigorta</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #111110;
+    --white: #FAF9F7;
+    --gray-100: #F1EFE8;
+    --gray-400: #888780;
+    --gray-600: #5F5E5A;
+    --accent: #1D9E75;
+    --accent-light: #E1F5EE;
+    --font-serif: 'DM Serif Display', Georgia, serif;
+    --font-sans: 'DM Sans', system-ui, sans-serif;
+    --radius: 2px;
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--white);
+    color: var(--black);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .edit-banner {
+    background: var(--black);
+    color: var(--white);
+    text-align: center;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .edit-banner span { opacity: 0.5; }
+  .edit-btn {
+    background: none;
+    border: 1px solid rgba(255,255,255,0.25);
+    color: var(--white);
+    font-family: var(--font-sans);
+    font-size: 11px;
+    padding: 3px 10px;
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    transition: border-color 0.2s;
+  }
+  .edit-btn:hover { border-color: var(--white); }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    border-bottom: 1px solid var(--gray-100);
+    position: sticky;
+    top: 0;
+    background: var(--white);
+    z-index: 100;
+  }
+
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+  }
+
+  .logo-mark {
+    width: 32px;
+    height: 32px;
+    background: var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .logo-mark svg { width: 18px; height: 18px; fill: var(--white); }
+
+  .logo-text {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+
+  .logo-tagline {
+    font-size: 10px;
+    color: var(--gray-400);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--gray-600);
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--black); }
+
+  .nav-cta { display: flex; align-items: center; gap: 16px; }
+
+  .btn-ghost {
+    background: none;
+    border: none;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--gray-600);
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--black); }
+
+  .btn-primary {
+    background: var(--black);
+    color: var(--white);
+    border: none;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 400;
+    padding: 10px 22px;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: #333; }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--black); }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: calc(100vh - 105px);
+    max-height: 800px;
+  }
+
+  .hero-left {
+    padding: 80px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--gray-100);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 24px;
+  }
+
+  .hero-title {
+    font-family: var(--font-serif);
+    font-size: clamp(38px, 5vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+  }
+
+  .hero-title em { font-style: italic; color: var(--gray-400); }
+
+  .hero-body {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--gray-600);
+    max-width: 400px;
+    margin-bottom: 44px;
+    line-height: 1.75;
+  }
+
+  .hero-actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+
+  .btn-large {
+    background: var(--black);
+    color: var(--white);
+    border: none;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    padding: 14px 32px;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background 0.2s;
+  }
+  .btn-large:hover { background: #333; }
+
+  .link-secondary {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--gray-600);
+    cursor: pointer;
+    border-bottom: 1px solid var(--gray-400);
+    padding-bottom: 1px;
+    transition: color 0.2s;
+  }
+  .link-secondary:hover { color: var(--black); }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+    background: var(--gray-100);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .hero-visual {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 48px;
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(17,17,16,0.08);
+    border: 1px solid rgba(17,17,16,0.08);
+    margin-top: auto;
+  }
+
+  .stat-cell { background: var(--white); padding: 24px 20px; }
+
+  .stat-num {
+    font-family: var(--font-serif);
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    font-weight: 300;
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    top: 40px;
+    left: 48px;
+    font-family: var(--font-serif);
+    font-size: 120px;
+    color: rgba(17,17,16,0.04);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .ticker {
+    border-top: 1px solid var(--gray-100);
+    border-bottom: 1px solid var(--gray-100);
+    padding: 14px 0;
+    overflow: hidden;
+    display: flex;
+  }
+
+  .ticker-track {
+    display: flex;
+    gap: 0;
+    animation: ticker 20s linear infinite;
+    white-space: nowrap;
+  }
+
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .ticker-item {
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 300;
+  }
+
+  .ticker-dot { width: 4px; height: 4px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+
+  .products { padding: 96px 48px; }
+
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 56px;
+  }
+
+  .section-title {
+    font-family: var(--font-serif);
+    font-size: clamp(28px, 3.5vw, 44px);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .section-title em { font-style: italic; color: var(--gray-400); }
+
+  .section-link {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--gray-400);
+    cursor: pointer;
+    border-bottom: 1px solid var(--gray-400);
+    padding-bottom: 1px;
+    white-space: nowrap;
+    transition: color 0.2s;
+    flex-shrink: 0;
+  }
+  .section-link:hover { color: var(--black); }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--gray-100);
+    border: 1px solid var(--gray-100);
+  }
+
+  .product-card {
+    background: var(--white);
+    padding: 40px 32px;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+  .product-card:hover { background: var(--gray-100); }
+
+  .product-icon { width: 40px; height: 40px; margin-bottom: 28px; }
+  .product-icon svg { width: 40px; height: 40px; }
+
+  .product-name {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    letter-spacing: -0.01em;
+    margin-bottom: 10px;
+  }
+
+  .product-desc {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--gray-400);
+    line-height: 1.7;
+    margin-bottom: 32px;
+    flex: 1;
+  }
+
+  .product-price {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .features {
+    background: var(--black);
+    color: var(--white);
+    padding: 96px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .features-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 24px;
+  }
+
+  .features-title {
+    font-family: var(--font-serif);
+    font-size: clamp(28px, 3.5vw, 44px);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .features-title em { font-style: italic; color: var(--gray-400); }
+
+  .features-body {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--gray-400);
+    line-height: 1.8;
+    margin-bottom: 40px;
+  }
+
+  .features-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: rgba(255,255,255,0.06);
+  }
+
+  .feature-item {
+    background: var(--black);
+    padding: 24px 28px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    transition: background 0.2s;
+  }
+  .feature-item:hover { background: #1a1a19; }
+
+  .feature-num {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    font-weight: 500;
+    padding-top: 2px;
+    flex-shrink: 0;
+    width: 24px;
+  }
+
+  .feature-label { font-size: 15px; font-weight: 400; margin-bottom: 4px; }
+
+  .feature-detail {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--gray-400);
+    line-height: 1.65;
+  }
+
+  .quote-section {
+    padding: 96px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .quote-title {
+    font-family: var(--font-serif);
+    font-size: clamp(28px, 3.5vw, 44px);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .quote-title em { font-style: italic; color: var(--gray-400); }
+
+  .quote-body {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--gray-600);
+    line-height: 1.8;
+    margin-bottom: 40px;
+  }
+
+  .contact-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+
+  .contact-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--gray-600);
+  }
+
+  .contact-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+
+  .form-panel {
+    background: var(--gray-100);
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .field { display: flex; flex-direction: column; gap: 6px; }
+
+  .field label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-600);
+    font-weight: 500;
+  }
+
+  .field input, .field select {
+    background: var(--white);
+    border: 1px solid rgba(17,17,16,0.12);
+    padding: 12px 14px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--black);
+    outline: none;
+    transition: border-color 0.2s;
+    border-radius: 0;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .field input:focus, .field select:focus { border-color: var(--black); }
+  .field.full { grid-column: 1 / -1; }
+
+  .form-submit {
+    background: var(--black);
+    color: var(--white);
+    border: none;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 400;
+    padding: 15px 32px;
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: background 0.2s;
+    width: 100%;
+    margin-top: 8px;
+  }
+  .form-submit:hover { background: #333; }
+
+  
+  footer {
+    border-top: 1px solid var(--gray-100);
+    padding: 48px 48px 0;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+
+  .footer-logo {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+  }
+
+  .footer-desc {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--gray-400);
+    line-height: 1.75;
+    max-width: 240px;
+  }
+
+  .footer-col-title {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--black);
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+  .footer-links a {
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--gray-400);
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--black); }
+
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    border-top: 1px solid var(--gray-100);
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-copy {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--gray-400);
+  }
+
+  .footer-legal { display: flex; gap: 24px; list-style: none; align-items: center; }
+
+  .footer-legal a {
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--gray-400);
+    transition: color 0.2s;
+  }
+  .footer-legal a:hover { color: var(--black); }
+
+  
+  .dev-signature {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 0 20px;
+    border-top: 1px solid var(--gray-100);
+  }
+
+  .dev-line {
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--gray-400);
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .dev-name {
+    font-weight: 500;
+    color: var(--black);
+    letter-spacing: 0.04em;
+    font-size: 12px;
+  }
+
+  .dev-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--black);
+    color: var(--white);
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+  }
+
+  .dev-dot-green {
+    width: 5px;
+    height: 5px;
+    background: var(--accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(17,17,16,0.6);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--white);
+    width: 100%;
+    max-width: 480px;
+    padding: 40px;
+    position: relative;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--gray-400);
+    line-height: 1;
+    padding: 4px;
+  }
+
+  .modal-title { font-family: var(--font-serif); font-size: 26px; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .modal-sub { font-size: 14px; font-weight: 300; color: var(--gray-400); margin-bottom: 28px; line-height: 1.6; }
+
+  .modal-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+
+  .modal-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-600);
+    font-weight: 500;
+  }
+
+  .modal-input {
+    background: var(--gray-100);
+    border: 1px solid transparent;
+    padding: 12px 14px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.2s;
+    border-radius: 0;
+  }
+  .modal-input:focus { border-color: var(--black); }
+
+  .modal-submit {
+    background: var(--black);
+    color: var(--white);
+    border: none;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    padding: 14px 28px;
+    cursor: pointer;
+    width: 100%;
+    letter-spacing: 0.04em;
+    margin-top: 8px;
+    transition: background 0.2s;
+  }
+  .modal-submit:hover { background: #333; }
+
+  [contenteditable] { outline: none; border-bottom: 1px dashed transparent; transition: border-color 0.2s; }
+  [contenteditable]:hover { border-bottom-color: var(--accent); }
+  [contenteditable]:focus { border-bottom-color: var(--black); }
+
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-100);
+    padding: 24px 32px;
+    gap: 20px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { text-decoration: none; font-size: 15px; font-weight: 300; color: var(--gray-600); padding: 4px 0; }
+
+  @media (max-width: 900px) {
+    nav { padding: 18px 24px; }
+    .nav-links { display: none; }
+    .btn-ghost { display: none; }
+    .hamburger { display: flex; }
+    .hero { grid-template-columns: 1fr; min-height: auto; max-height: none; }
+    .hero-left { padding: 56px 24px; border-right: none; border-bottom: 1px solid var(--gray-100); }
+    .hero-right { min-height: 280px; }
+    .hero-bg-text { font-size: 80px; top: 24px; left: 24px; }
+    .products { padding: 56px 24px; }
+    .features { grid-template-columns: 1fr; padding: 56px 24px; gap: 40px; }
+    .quote-section { grid-template-columns: 1fr; padding: 56px 24px; gap: 40px; }
+    .form-row { grid-template-columns: 1fr; }
+    .form-panel { padding: 32px 24px; }
+    footer { padding: 40px 24px 0; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+  }
+
+  @media (max-width: 540px) {
+    .footer-top { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: 1fr 1fr; }
+    .hero-actions { flex-direction: column; align-items: flex-start; }
+    .hero-visual { padding: 24px; }
+    .dev-line { flex-direction: column; gap: 4px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="edit-banner">
+  <span>DEMO MODU</span>
+  Başlık ve metinler düzenlenebilir — tıklayıp yazın
+  <button class="edit-btn" onclick="toggleEdit()">Düzenlemeyi Aç / Kapat</button>
+</div>
+
+<nav>
+  <div class="logo-area" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L3 7v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V7L12 2z"/>
+      </svg>
+    </div>
+    <div>
+      <div class="logo-text" id="logo-name" contenteditable="false">Güvenli</div>
+      <div class="logo-tagline" id="logo-tag" contenteditable="false">Sigorta Acentesi</div>
+    </div>
+  </div>
+
+  <ul class="nav-links">
+    <li><a href="#urunler">Ürünler</a></li>
+    <li><a href="#neden">Neden Biz</a></li>
+    <li><a href="#iletisim">İletişim</a></li>
+    <li><a href="#">Hasar Bildir</a></li>
+  </ul>
+
+  <div class="nav-cta">
+    <button class="btn-ghost" onclick="openModal('login')">Giriş Yap</button>
+    <button class="btn-primary" onclick="openModal('quote')">Teklif Al</button>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menü">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#urunler" onclick="toggleMenu()">Ürünler</a>
+  <a href="#neden" onclick="toggleMenu()">Neden Biz</a>
+  <a href="#iletisim" onclick="toggleMenu()">İletişim</a>
+  <a href="#" onclick="toggleMenu()">Hasar Bildir</a>
+  <a href="#" onclick="openModal('login'); toggleMenu()">Giriş Yap</a>
+</div>
+
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow" id="hero-eyebrow" contenteditable="false">Türkiye Geneli · 7/24 Destek</p>
+    <h1 class="hero-title">
+      <span id="hero-title-1" contenteditable="false">Güvenceniz</span><br>
+      <em id="hero-title-2" contenteditable="false">her zaman</em><br>
+      <span id="hero-title-3" contenteditable="false">yanınızda.</span>
+    </h1>
+    <p class="hero-body" id="hero-body" contenteditable="false">
+      Sigorta karmaşık olmak zorunda değil. Sizi tanıyoruz, ihtiyacınıza göre şekillendiriyoruz — hızlı, şeffaf, güvenilir.
+    </p>
+    <div class="hero-actions">
+      <button class="btn-large" onclick="document.getElementById('iletisim').scrollIntoView({behavior:'smooth'})">Teklif Al</button>
+      <span class="link-secondary" onclick="document.getElementById('urunler').scrollIntoView({behavior:'smooth'})">Ürünleri İncele</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg-text">G</div>
+    <div class="hero-visual">
+      <div class="stat-row">
+        <div class="stat-cell">
+          <div class="stat-num" id="stat1" contenteditable="false">24K+</div>
+          <div class="stat-label" id="stat1l" contenteditable="false">Mutlu Müşteri</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num" id="stat2" contenteditable="false">%99</div>
+          <div class="stat-label" id="stat2l" contenteditable="false">Hasar Ödeme</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num" id="stat3" contenteditable="false">48s</div>
+          <div class="stat-label" id="stat3l" contenteditable="false">Ortalama Yanıt</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num" id="stat4" contenteditable="false">14 Yıl</div>
+          <div class="stat-label" id="stat4l" contenteditable="false">Sektör Deneyimi</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="ticker-dot"></span>Kasko Sigortası</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Konut Sigortası</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Sağlık Sigortası</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>İşyeri Sigortası</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Hayat Sigortası</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Trafik Sigortası</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Seyahat Sigortası</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Kasko Sigortası</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Konut Sigortası</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Sağlık Sigortası</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>İşyeri Sigortası</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Hayat Sigortası</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Trafik Sigortası</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Seyahat Sigortası</span>
+  </div>
+</div>
+
+<section class="products" id="urunler">
+  <div class="section-header">
+    <h2 class="section-title">Sigorta <em>Ürünleri</em></h2>
+    <span class="section-link">Tümünü Gör →</span>
+  </div>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-icon">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="16" width="32" height="18" rx="1" stroke="#111110" stroke-width="1.5"/>
+          <path d="M10 16V11a10 10 0 0 1 20 0v5" stroke="#111110" stroke-width="1.5"/>
+          <circle cx="20" cy="25" r="3" stroke="#1D9E75" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="product-name">Kasko</div>
+      <div class="product-desc">Aracınız için kapsamlı koruma. Kaza, hırsızlık ve doğal afetlere karşı.</div>
+      <div class="product-price">Aylık 850₺'den başlayan →</div>
+    </div>
+    <div class="product-card">
+      <div class="product-icon">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 22L20 8l12 14v14H8V22z" stroke="#111110" stroke-width="1.5"/>
+          <rect x="15" y="28" width="10" height="8" stroke="#1D9E75" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="product-name">Konut</div>
+      <div class="product-desc">Evinizi ve eşyalarınızı yangın, sel ve hırsızlığa karşı güvence altına alın.</div>
+      <div class="product-price">Aylık 290₺'den başlayan →</div>
+    </div>
+    <div class="product-card">
+      <div class="product-icon">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 4C20 4 8 10 8 20c0 8 5.4 14.3 12 16 6.6-1.7 12-8 12-16C32 10 20 4 20 4z" stroke="#111110" stroke-width="1.5"/>
+          <path d="M14 20l4 4 8-8" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="product-name">Sağlık</div>
+      <div class="product-desc">Tamamlayıcı veya özel sağlık sigortası ile kendinizi ve ailenizi koruyun.</div>
+      <div class="product-price">Aylık 480₺'den başlayan →</div>
+    </div>
+    <div class="product-card">
+      <div class="product-icon">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="10" width="28" height="22" rx="1" stroke="#111110" stroke-width="1.5"/>
+          <path d="M14 10V7M26 10V7" stroke="#111110" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="14" cy="21" r="2" fill="#1D9E75"/>
+          <circle cx="20" cy="21" r="2" fill="#1D9E75"/>
+          <circle cx="26" cy="21" r="2" fill="#1D9E75"/>
+        </svg>
+      </div>
+      <div class="product-name">Seyahat</div>
+      <div class="product-desc">Yurt içi ve uluslararası yolculuklarınızda tam güvence ile seyahat edin.</div>
+      <div class="product-price">Günlük 45₺'den başlayan →</div>
+    </div>
+    <div class="product-card">
+      <div class="product-icon">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 6v28M6 20h28" stroke="#111110" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="20" cy="20" r="12" stroke="#1D9E75" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="product-name">Hayat</div>
+      <div class="product-desc">Sevdiklerinizin geleceğini güvence altına alın, birikimli seçeneklerle.</div>
+      <div class="product-price">Aylık 220₺'den başlayan →</div>
+    </div>
+    <div class="product-card">
+      <div class="product-icon">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="12" width="24" height="20" rx="1" stroke="#111110" stroke-width="1.5"/>
+          <path d="M14 12V9a6 6 0 0 1 12 0v3" stroke="#111110" stroke-width="1.5"/>
+          <path d="M16 24h8M20 20v8" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="product-name">İşyeri</div>
+      <div class="product-desc">İşletmenizi ve ekipmanlarınızı her türlü riske karşı koruyun.</div>
+      <div class="product-price">Fiyat için arayın →</div>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="neden">
+  <div class="features-left">
+    <p class="features-eyebrow">Neden Biz</p>
+    <h2 class="features-title">Fark yaratan <em>detaylar</em></h2>
+    <p class="features-body">14 yıllık deneyimle, sigorta sektörünün en karmaşık yanlarını sadeleştirdik. Müşterilerimiz bize bir kez gelir, yıllarca kalır.</p>
+    <button class="btn-large" style="background:white;color:#111110;" onclick="openModal('quote')">Ücretsiz Teklif Al</button>
+  </div>
+  <div class="features-right">
+    <div class="feature-item">
+      <span class="feature-num">01</span>
+      <div>
+        <div class="feature-label">Hızlı Poliçe Düzenleme</div>
+        <div class="feature-detail">Başvurunuzu tamamladıktan 15 dakika içinde poliçeniz e-posta adresinizde.</div>
+      </div>
+    </div>
+    <div class="feature-item">
+      <span class="feature-num">02</span>
+      <div>
+        <div class="feature-label">Şeffaf Fiyatlandırma</div>
+        <div class="feature-detail">Gizli ücret yok. Teklif aldığınız fiyat, ödeyeceğiniz fiyattır.</div>
+      </div>
+    </div>
+    <div class="feature-item">
+      <span class="feature-num">03</span>
+      <div>
+        <div class="feature-label">7/24 Hasar Desteği</div>
+        <div class="feature-detail">Hasar anında yanınızdayız. Telefon, WhatsApp veya uygulama ile ulaşın.</div>
+      </div>
+    </div>
+    <div class="feature-item">
+      <span class="feature-num">04</span>
+      <div>
+        <div class="feature-label">Tek Temsilci, Tam Hizmet</div>
+        <div class="feature-detail">Size özel danışmanınız tüm sigorta işlemlerinizi baştan sona yönetir.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="quote-section" id="iletisim">
+  <div class="quote-left">
+    <h2 class="quote-title">Teklifinizi <em>hemen</em> alın</h2>
+    <p class="quote-body">Formu doldurun, danışmanımız en kısa sürede sizinle iletişime geçsin. Ücretsiz ve bağlayıcı değildir.</p>
+    <ul class="contact-list">
+      <li><span class="contact-dot"></span><span id="contact-phone" contenteditable="false">0850 000 00 00</span></li>
+      <li><span class="contact-dot"></span><span id="contact-email" contenteditable="false">info@guvenli.com.tr</span></li>
+      <li><span class="contact-dot"></span><span id="contact-address" contenteditable="false">Levent, İstanbul</span></li>
+      <li><span class="contact-dot"></span>Haftaiçi 09:00–18:00, C.tesi 10:00–14:00</li>
+    </ul>
+  </div>
+  <div class="form-panel">
+    <div class="form-row">
+      <div class="field">
+        <label>Ad</label>
+        <input type="text" placeholder="Adınız">
+      </div>
+      <div class="field">
+        <label>Soyad</label>
+        <input type="text" placeholder="Soyadınız">
+      </div>
+    </div>
+    <div class="field">
+      <label>Telefon</label>
+      <input type="tel" placeholder="0555 000 00 00">
+    </div>
+    <div class="field">
+      <label>İlgilendiğiniz Sigorta</label>
+      <select>
+        <option value="">Seçiniz...</option>
+        <option>Kasko</option>
+        <option>Konut</option>
+        <option>Sağlık</option>
+        <option>Seyahat</option>
+        <option>Hayat</option>
+        <option>İşyeri</option>
+        <option>Diğer</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Notunuz (isteğe bağlı)</label>
+      <input type="text" placeholder="Eklemek istediğiniz bilgi...">
+    </div>
+    <button class="form-submit" onclick="formSubmit()">Teklif Talep Et →</button>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo" id="footer-logo" contenteditable="false">Güvenli Sigorta</div>
+      <p class="footer-desc">Türkiye'nin güvenilir sigorta acentesi. 14 yıldır sizin için buradayız.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Ürünler</p>
+      <ul class="footer-links">
+        <li><a href="#">Kasko</a></li>
+        <li><a href="#">Konut</a></li>
+        <li><a href="#">Sağlık</a></li>
+        <li><a href="#">Seyahat</a></li>
+        <li><a href="#">Hayat</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Kurumsal</p>
+      <ul class="footer-links">
+        <li><a href="#">Hakkımızda</a></li>
+        <li><a href="#">Referanslar</a></li>
+        <li><a href="#">Kariyer</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Destek</p>
+      <ul class="footer-links">
+        <li><a href="#">Hasar Bildir</a></li>
+        <li><a href="#">S.S.S.</a></li>
+        <li><a href="#">İletişim</a></li>
+        <li><a href="#">Belgeler</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 Güvenli Sigorta Acentecilik Ltd. Şti. — Levazım Mah. İstanbul</span>
+    <ul class="footer-legal">
+      <li><a href="#">Gizlilik</a></li>
+      <li><a href="#">KVKK</a></li>
+      <li><a href="#">Şartlar</a></li>
+    </ul>
+  </div>
+
+  <!-- DEV SIGNATURE -->
+  <div class="dev-signature">
+    <div class="dev-line">
+      <span style="color:var(--gray-400);font-size:11px;letter-spacing:0.08em;">tasarım &amp; geliştirme</span>
+      <span class="dev-dot-green"></span>
+      <span class="dev-name">Batuhan Bayatlı</span>
+      <span class="dev-badge">
+        <span style="width:5px;height:5px;background:var(--accent);border-radius:50%;display:inline-block;"></span>
+        Developer
+      </span>
+    </div>
+  </div>
+</footer>
+
+<!-- Modals -->
+<div class="modal-overlay" id="modal-quote" onclick="closeModal('quote')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('quote')">×</button>
+    <div class="modal-title">Hızlı Teklif</div>
+    <p class="modal-sub">Bilgilerinizi bırakın, danışmanımız sizi arasın.</p>
+    <div class="modal-field">
+      <label class="modal-label">Ad Soyad</label>
+      <input class="modal-input" type="text" placeholder="Adınız">
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">Telefon</label>
+      <input class="modal-input" type="tel" placeholder="0555 000 00 00">
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">Sigorta Türü</label>
+      <select class="modal-input">
+        <option>Kasko</option><option>Konut</option><option>Sağlık</option><option>Diğer</option>
+      </select>
+    </div>
+    <button class="modal-submit" onclick="formSubmit()">Gönder →</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-login" onclick="closeModal('login')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('login')">×</button>
+    <div class="modal-title">Giriş Yap</div>
+    <p class="modal-sub">Müşteri paneline erişmek için giriş yapın.</p>
+    <div class="modal-field">
+      <label class="modal-label">E-posta</label>
+      <input class="modal-input" type="email" placeholder="siz@email.com">
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">Şifre</label>
+      <input class="modal-input" type="password" placeholder="••••••••">
+    </div>
+    <button class="modal-submit">Giriş Yap →</button>
+    <p style="text-align:center;margin-top:16px;font-size:12px;color:var(--gray-400);">
+      Hesabınız yok mu? <span style="border-bottom:1px solid;cursor:pointer;" onclick="closeModal('login');openModal('quote')">Teklif alın</span>
+    </p>
+  </div>
+</div>
+
+<script>
+  let editMode = false;
+  const editableIds = ['logo-name','logo-tag','hero-eyebrow','hero-title-1','hero-title-2','hero-title-3','hero-body','stat1','stat1l','stat2','stat2l','stat3','stat3l','stat4','stat4l','contact-phone','contact-email','contact-address','footer-logo'];
+
+  function toggleEdit() {
+    editMode = !editMode;
+    editableIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.contentEditable = editMode ? 'true' : 'false';
+    });
+  }
+
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  function openModal(type) {
+    document.getElementById('modal-' + type).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal(type) {
+    document.getElementById('modal-' + type).classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function formSubmit() {
+    alert('Talebiniz alındı! Danışmanımız en kısa sürede sizinle iletişime geçecektir.');
+    closeModal('quote');
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeModal('quote'); closeModal('login'); }
+  });
+</script>
+</body>
+</html>
