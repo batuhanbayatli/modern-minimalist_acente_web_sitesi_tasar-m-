@@ -1,4 +1,4 @@
-# Kalkan 🛡️
+# Modern Minimalist Acente Web Sitesi Projesi 🛡️
 
 Ultra minimalist sigorta acentesi web arayüzü. Vanilla JS, tam responsive, canlı içerik düzenleme özellikli — portföy & demo amaçlı.
 
